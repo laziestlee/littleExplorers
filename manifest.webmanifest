@@ -1,12 +1,12 @@
 {
   "id": "./",
-  "name": "家庭学习空间",
-  "short_name": "家庭课程",
+  "name": "小小探索家 · 汉字英语数学互动游戏",
+  "short_name": "小小探索家",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f7f4",
-  "theme_color": "#174d4d",
+  "background_color": "#f5f9ff",
+  "theme_color": "#edf6ff",
   "icons": [
     {
       "src": "./icon.svg",
