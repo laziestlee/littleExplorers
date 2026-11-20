@@ -1,5 +1,5 @@
 /* Cache only publicly encrypted site files. Never cache decrypted HTML or passwords. */
-const CACHE='family-courses-encrypted-v3';
+const CACHE='family-courses-encrypted-v4';
 const ASSETS=['./','./index.html','./course.enc.json','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
