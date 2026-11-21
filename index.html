@@ -61,7 +61,7 @@ button[disabled]{opacity:.55;cursor:wait}.status{font-size:13px;line-height:1.7;
      const page=await new Response(new Blob([decoded]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
      if(!page.startsWith('<!doctype html>')||!page.includes('xiaoxiao')){ /* non-fatal sanity: original app uses Chinese title */ }
      setStatus('已解锁，正在打开学习空间…');
-     const patchedPage = page.replace(/<\/head>/i, '<link rel="stylesheet" href="./kid-design-v6.css"></head>');
+     const patchedPage = page.replace(/<\/head>/i, '<link rel="stylesheet" href="./kid-design-v6.css"><link rel="stylesheet" href="./v7-games.css"></head>');
      document.open();document.write(patchedPage);document.close();
    }catch(err){setStatus(err instanceof DOMException&&err.name==='OperationError'?'密码不正确，请重新输入。':'解锁失败：'+String(err.message||err)+'。请确认网络或缓存可用。');button.disabled=false;field.focus();}
  });
