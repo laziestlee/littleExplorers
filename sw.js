@@ -1,6 +1,6 @@
 /* Cache only publicly encrypted site files. Never cache decrypted HTML or passwords. */
-const CACHE='family-courses-encrypted-v6-responsive';
-const ASSETS=['./','./index.html','./course.enc.json','./manifest.webmanifest','./icon.svg','./kid-design-v6.css'];
+const CACHE='family-courses-encrypted-v7-content-health';
+const ASSETS=['./','./index.html','./course.enc.json','./manifest.webmanifest','./icon.svg','./kid-design-v6.css','./v7-games.css'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
