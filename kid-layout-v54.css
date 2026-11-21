@@ -25,3 +25,16 @@ body.kid-mode .kid-rest{grid-area:rest;margin:0;text-align:center;font-size:clam
 @container kidspace (min-width:700px) and (max-height:520px) and (min-aspect-ratio:1.35){body.kid-mode .kidmain{grid-template-columns:minmax(160px,27cqw) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"hero title" "hero cards" "hero rest";gap:5px clamp(8px,1.2cqw,14px)}body.kid-mode .kidhomehero{padding:8px;gap:6px;border-radius:16px}body.kid-mode .kidhomehero h1{font-size:clamp(18px,4cqh,25px)}body.kid-mode .kidhomehero .kidhero-speak{min-height:32px;font-size:11px;padding:3px 7px}body.kid-mode .kidhomehero .kid-mascot{width:clamp(70px,18cqh,110px);max-height:42%}body.kid-mode .kidpick-title{font-size:clamp(14px,3.4cqh,18px)}body.kid-mode .kidcards-four{gap:5px}body.kid-mode .kidcards-four .kidcard{padding:4px;gap:2px;border-radius:12px}body.kid-mode .kidcards-four .kidcard .kidart{font-size:clamp(27px,7cqh,38px)}body.kid-mode .kidcards-four .kidcard strong{font-size:clamp(11px,2.6cqh,14px)}body.kid-mode .kidcards-four .kidcard small{font-size:clamp(8px,2cqh,11px)}body.kid-mode .kidcards-four .kidcard .kidcard-arrow{font-size:9px;padding:2px 6px}body.kid-mode .kid-rest{font-size:9px}}
 @container kidspace (max-width:380px){body.kid-mode .kidhomehero{grid-template-columns:minmax(0,1fr) clamp(68px,23cqw,92px);min-height:clamp(105px,17cqh,140px);padding:9px 11px}body.kid-mode .kidhomehero h1{font-size:clamp(19px,3.6cqh,25px)}body.kid-mode .kidhomehero .kidhero-speak{min-height:34px;font-size:11px;padding:4px 8px}body.kid-mode .kidcards-four .kidcard{padding:6px 4px;gap:4px}body.kid-mode .kidcards-four .kidcard .kidart{font-size:clamp(34px,6.8cqh,48px)}body.kid-mode .kidcards-four .kidcard strong{font-size:clamp(13px,2cqh,16px)}body.kid-mode .kidcards-four .kidcard small{font-size:clamp(9px,1.5cqh,11px)}body.kid-mode .kidcards-four .kidcard .kidcard-arrow{font-size:9px;padding:3px 6px}}
 body.kid-mode .v5-home-note{display:none!important}
+/* V5.4 compatibility: defeat old compressed text/icon sizes in the encrypted page. */
+@container kidspace (min-width:820px) and (min-height:540px) and (min-aspect-ratio:1.15){
+ body.kid-mode .kidcards-four .kidcard .kidart,body.kid-mode .kidcards-four .kidcard.ma .kidart{font-size:clamp(62px,11cqh,104px)!important}
+ body.kid-mode .kidcards-four .kidcard strong{font-size:clamp(19px,3.1cqh,27px)!important}
+ body.kid-mode .kidcards-four .kidcard small{font-size:clamp(12px,2.1cqh,17px)!important}
+ body.kid-mode .kidcards-four .kidcard .kidcard-arrow{font-size:clamp(12px,1.9cqh,15px)!important;padding:6px 17px!important}
+}
+@container kidspace (max-width:819px){
+ body.kid-mode .kidcards-four .kidcard .kidart,body.kid-mode .kidcards-four .kidcard.ma .kidart{font-size:clamp(46px,8cqh,82px)!important}
+ body.kid-mode .kidcards-four .kidcard strong{font-size:clamp(17px,2.6cqh,23px)!important}
+ body.kid-mode .kidcards-four .kidcard small{font-size:clamp(11px,1.7cqh,15px)!important}
+ body.kid-mode .kidcards-four .kidcard .kidcard-arrow{font-size:clamp(11px,1.55cqh,14px)!important}
+}
