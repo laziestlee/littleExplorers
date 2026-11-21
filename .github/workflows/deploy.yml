@@ -30,7 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p site
-          cp index.html course.enc.json sw.js manifest.webmanifest icon.svg robots.txt .nojekyll site/
+          cp index.html course.enc.json sw.js manifest.webmanifest icon.svg robots.txt .nojekyll kid-layout-v54.css site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
