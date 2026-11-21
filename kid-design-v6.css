@@ -1,0 +1,423 @@
+/* 小小探索家 V6 · Responsive component system
+   Child play mode: one scene/viewport with generous interactive targets.
+   Layout uses available container area, not device-name or pixel-perfect presets.
+   Parent's reading/management screens remain scrollable. */
+:root {
+  --kid-space-1: clamp(6px, .9vmin, 10px);
+  --kid-space-2: clamp(10px, 1.45vmin, 16px);
+  --kid-space-3: clamp(14px, 2.2vmin, 24px);
+  --kid-font-ui: clamp(15px, 1.85vmin, 19px);
+  --kid-radius: clamp(18px, 2.5vmin, 30px);
+}
+body.kid-mode {
+  inset:0; width:100%; height:100dvh; position:fixed; overflow:hidden;
+  background:#f1f7ff; overscroll-behavior:none;
+}
+body.kid-mode .shell {
+  width:100%; height:100dvh; max-width:none; margin:0;
+  display:flex; flex-direction:column; min-height:0; overflow:hidden;
+  padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));
+}
+body.kid-mode #app {flex:1 1 auto; min-width:0;min-height:0; height:100%;overflow:hidden;display:flex; container-type:size;}
+body.kid-mode .kidapp {flex:1 1 auto; min-width:0;min-height:0;width:100%;height:100%;display:flex;flex-direction:column;gap:clamp(8px,1.25cqh,15px);overflow:hidden;container-type:size;container-name:kidspace;}
+body.kid-mode .kidtop {flex:0 0 clamp(48px,7cqh,62px); height:auto;min-height:0;padding:0 var(--kid-space-1);gap:var(--kid-space-1);}
+body.kid-mode .kidbrand {font-size:clamp(16px,2.15cqh,23px);gap:10px;min-height:46px}
+body.kid-mode .kidbrand-ico {width:clamp(40px,6cqh,50px);height:clamp(40px,6cqh,50px);min-width:40px;font-size:clamp(23px,3.5cqh,31px)}
+body.kid-mode .kidtop-actions {gap:clamp(7px,1cqw,12px)}
+body.kid-mode .kidquiet,body.kid-mode .kidparent {min-width:50px;min-height:46px;padding:6px clamp(9px,1.25cqw,14px);border-radius:16px;line-height:1.05;font-size:20px;}
+body.kid-mode .kidhead-label {font-size:clamp(11px,1.4cqh,15px);line-height:1.1}
+body.kid-mode .kid-scene-head {flex:0 0 clamp(42px,5.9cqh,52px);height:auto;min-height:0;margin:0;padding:0 var(--kid-space-1)}
+body.kid-mode .kid-back {min-height:44px;padding:9px clamp(13px,1.5cqw,21px);font-size:clamp(14px,1.8cqh,18px);}
+body.kid-mode .kid-scene-number {font-size:clamp(12px,1.5cqh,16px)}
+body.kid-mode .v5tabs {flex:0 0 clamp(48px,6.5cqh,62px);height:auto;min-height:0;width:min(100%,850px);margin:0 auto;gap:clamp(9px,1.35cqw,15px)}
+body.kid-mode .v5tabs button {height:100%;min-height:0;min-width:0;padding:8px 12px;font-size:clamp(14px,2cqh,19px);border-radius:16px;}
+body.kid-mode .v5tabs button span {font-size:clamp(18px,2.7cqh,24px)!important; margin-right:6px!important;}
+
+/* Home — stable card proportions and balanced content groups */
+body.kid-mode .kidmain {
+  flex:1 1 auto;min-height:0;min-width:0;width:100%; overflow:hidden;
+  display:grid; align-items:stretch;align-content:stretch; padding:0 2px;
+  grid-template-areas:'hero' 'title' 'cards' 'rest';
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(120px,25fr) auto minmax(230px,75fr) auto;
+  gap:clamp(8px,1.3cqh,17px);
+}
+body.kid-mode .kidhomehero {grid-area:hero;width:100%;height:100%;min-height:0;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,25%);align-items:center;
+  padding:clamp(12px,2cqh,27px) clamp(14px,2.6cqw,28px);gap:clamp(9px,1.6cqw,20px);border-radius:var(--kid-radius);}
+body.kid-mode .kidhomehero .kidhero-copy {display:flex;flex-direction:column;align-items:start;justify-content:center;gap:clamp(5px,1cqh,11px);min-width:0;min-height:0}
+body.kid-mode .kidhomehero h1 {font-size:clamp(24px,3.7cqh,42px);line-height:1.13;margin:0}
+body.kid-mode .kidhomehero p {display:none}
+body.kid-mode .kidhomehero .kideyebrow {font-size:clamp(10px,1.5cqh,15px);padding:5px 12px}
+body.kid-mode .kidhomehero .kidhero-speak {min-height:46px;margin:0;padding:9px 15px;font-size:clamp(14px,1.9cqh,18px)}
+body.kid-mode .kidhomehero .kid-mascot {width:100%;height:auto;max-width:min(100%,200px);max-height:100%;justify-self:center;align-self:center;margin:0}
+body.kid-mode .kidhomehero .kid-mascot svg {width:100%;height:auto;max-height:100%}
+body.kid-mode .kidpick-title {grid-area:title;align-self:center;margin:0 2px;font-size:clamp(20px,2.8cqh,28px);line-height:1.2}
+body.kid-mode .v5-home-note {display:none!important}
+body.kid-mode .kidcards-four {grid-area:cards;width:100%;height:100%;min-width:0;min-height:0;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:clamp(9px,1.5cqw,19px);overflow:hidden;}
+body.kid-mode .kidcards-four .kidcard,body.kid-mode .kidcards-four .kidcard.ma,
+body.kid-mode .kidcards-four .kidcard.story {
+  height:100%;width:100%;min-width:0!important;min-height:0!important;margin:0!important;
+  padding:clamp(9px,1.5cqh,18px)!important;border:2px solid white!important;
+  border-radius:var(--kid-radius)!important;display:flex!important;flex-direction:column!important;
+  justify-content:center!important;align-items:center!important;gap:clamp(5px,.95cqh,10px)!important;
+  text-align:center; box-shadow:0 5px 0 #d9e3ed,0 12px 24px #49698112;
+}
+body.kid-mode .kidcards-four .kidcard .kidart,body.kid-mode .kidcards-four .kidcard.ma .kidart {flex:0 1 auto!important;width:auto;min-width:0!important;min-height:0!important;max-height:45%;grid-area:auto!important;font-size:clamp(48px,8.6cqh,90px)!important;line-height:1.12}
+body.kid-mode .kidcards-four .kidcard strong {font-size:clamp(18px,2.7cqh,26px)!important;line-height:1.2}
+body.kid-mode .kidcards-four .kidcard small {font-size:clamp(12px,1.75cqh,17px)!important;line-height:1.25}
+body.kid-mode .kidcards-four .kidcard .kidcard-arrow {margin:0!important;padding:7px 16px!important;font-size:clamp(12px,1.7cqh,16px)!important;line-height:1.2}
+body.kid-mode .kid-rest {grid-area:rest;text-align:center;align-self:center;margin:0;font-size:clamp(12px,1.6cqh,15px);line-height:1.2}
+
+/* All eight games share a centered, readable play surface. */
+body.kid-mode .kid-stage,body.kid-mode .kid-stage.v5-stage {
+  flex:1 1 0%;min-width:0;min-height:0;width:100%;max-width:1160px;height:0;max-height:100%;margin:0 auto;
+  padding:clamp(13px,2.1cqh,27px) clamp(12px,2.5cqw,30px);
+  border-radius:var(--kid-radius);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  gap:clamp(7px,1.25cqh,15px);overflow:hidden;
+  background:#fff; box-shadow:0 9px 30px #203d5f0c;
+  container-type:size;container-name:playstage;
+}
+body.kid-mode .kid-stage > * {min-width:0;max-width:100%}
+body.kid-mode .kid-stage-header {flex:0 0 auto;width:min(100%,930px);margin:0;display:flex;align-items:center;justify-content:center;gap:clamp(11px,1.8cqw,20px);text-align:left;}
+body.kid-mode .kid-stage-emoji {flex:0 0 auto;font-size:clamp(35px,5.4cqh,56px);line-height:1.05}
+body.kid-mode .kid-stage h1 {font-size:clamp(23px,3.4cqh,36px);margin:0;line-height:1.12}
+body.kid-mode .kid-stage-sub,body.kid-mode .kid-stage .kid-stage-sub {font-size:clamp(13px,2cqh,18px);line-height:1.25}
+body.kid-mode .v5-intro {display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:clamp(13px,1.5cqw,22px);margin:0;text-align:left}
+body.kid-mode .v5-mascot {font-size:clamp(36px,6cqh,58px);line-height:1}
+body.kid-mode .v5-intro h1 {font-size:clamp(23px,3.5cqh,36px);line-height:1.15;margin:0}
+body.kid-mode .v5-intro p {font-size:clamp(13px,1.9cqh,18px);line-height:1.25;margin:5px 0 0}
+body.kid-mode .kid-rounds,body.kid-mode .v5progress {flex:0 0 auto;margin:0;min-height:18px;display:flex;justify-content:center;align-items:center;gap:clamp(7px,1.1cqw,13px);font-size:clamp(14px,2cqh,20px)}
+body.kid-mode .kid-listen,body.kid-mode .v5-hear {flex:0 0 auto;width:min(100%,320px);min-height:56px;margin:0 auto;border-radius:18px;padding:10px 20px;font-size:clamp(18px,2.5cqh,23px)}
+body.kid-mode .kid-feedback,body.kid-mode .v5-feedback {flex:0 0 auto;min-height:48px;padding:9px 16px;margin:0 auto;border-radius:16px;font-size:clamp(14px,1.9cqh,18px);line-height:1.28;text-align:center}
+body.kid-mode .kid-next,body.kid-mode .v5-primary,body.kid-mode .v5-secondary,body.kid-mode .v5-voice-help,body.kid-mode .kidmath-reset {flex:0 0 auto;min-height:50px;padding:9px 20px;margin:0 auto;font-size:clamp(15px,2cqh,19px);border-radius:16px;}
+body.kid-mode .kid-quiet-tip,body.kid-mode .v5-tip,body.kid-mode .kidmath-help {font-size:clamp(12px,1.7cqh,16px);line-height:1.3;min-height:0;max-height:none;overflow:visible;margin:0;text-align:center}
+
+/* 1. Listen & choose Chinese/English: choices are the dominant scene. */
+body.kid-mode .kid-playstage {justify-content:space-between}
+body.kid-mode .kid-choices {flex:1 1 auto;min-height:0;width:min(100%,900px);max-width:100%;margin:0 auto;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(118px,1fr);
+ gap:clamp(10px,1.65cqw,22px);align-items:stretch;align-content:center;overflow:hidden;}
+body.kid-mode .kid-choice,body.kid-mode .kid-choice.picture {width:100%;height:100%;min-width:0;min-height:0;max-width:none;
+ border-radius:clamp(19px,2.4cqw,29px);font-size:clamp(47px,10cqh,96px);padding:clamp(8px,1.4cqh,18px);gap:clamp(5px,1cqh,10px);line-height:1.12;}
+body.kid-mode .kid-choice.picture {font-size:clamp(47px,9cqh,91px)}
+body.kid-mode .kid-choice .kidbig-emoji {font-size:inherit;line-height:1.05}
+body.kid-mode .kid-choice .kidword-meaning,body.kid-mode .kid-choice.picture small {font-size:clamp(15px,2.2cqh,21px);line-height:1.15}
+
+/* 2. Word building: large physical glyph tiles and two-line workbench. */
+body.kid-mode .v5-stage:has(.v5-word-slots) {justify-content:space-evenly}
+body.kid-mode .v5-word-slots {flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:min(100%,840px);min-height:clamp(80px,14cqh,135px);gap:clamp(12px,2cqw,25px);margin:0 auto;padding:clamp(6px,1cqh,14px) 4px}
+body.kid-mode .v5-slot {min-width:0;width:clamp(72px,11cqh,116px);height:clamp(78px,12cqh,124px);min-height:0;border-radius:clamp(17px,2.2cqh,25px);font-size:clamp(39px,6cqh,61px);}
+body.kid-mode .v5-chip-row {flex:0 0 auto;width:min(100%,840px);min-height:0;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(10px,1.8cqw,20px)}
+body.kid-mode .v5-char-chip {min-width:0;width:clamp(70px,10cqh,108px);height:clamp(74px,11cqh,116px);min-height:0;padding:6px;border-radius:clamp(17px,2cqh,24px);font-size:clamp(36px,5.5cqh,59px)}
+body.kid-mode .v5-buttons {display:flex;justify-content:center;flex:0 0 auto;margin:0;gap:clamp(10px,1.8cqw,20px)}
+
+/* 3. English picture drop: broad house with a separate card shelf. */
+body.kid-mode .v5-stage:has(.v5-house) {justify-content:space-evenly}
+body.kid-mode .v5-house {flex:1 1 auto;min-height:104px;max-height:clamp(160px,31cqh,260px);width:min(100%,730px);margin:0 auto;padding:clamp(12px,2cqh,22px);
+ border-radius:clamp(19px,2.7cqh,30px);font-size:clamp(16px,2.4cqh,24px);gap:clamp(7px,1.3cqh,16px);}
+body.kid-mode .v5-house>span {font-size:clamp(58px,10.5cqh,108px);line-height:1}
+body.kid-mode .v5-house-came {font-size:clamp(19px,3cqh,29px)}
+body.kid-mode .v5-picture-row {flex:0 0 auto;width:min(100%,730px);max-width:100%;margin:0 auto;display:flex;justify-content:center;flex-wrap:nowrap;gap:clamp(11px,2cqw,24px)}
+body.kid-mode .v5-picture {flex:1 1 0;width:auto;max-width:220px;min-width:0;height:clamp(85px,17cqh,156px);border-radius:clamp(17px,2.5cqh,26px);}
+body.kid-mode .v5-picture>span {font-size:clamp(44px,8.5cqh,85px)}
+
+/* 4. Cookie splitting: large two-bowl manipulation, no squeeze. */
+body.kid-mode .kid-math-stage {justify-content:space-between}
+body.kid-mode .kidmath-instruction {flex:0 0 auto;width:min(100%,880px);padding:clamp(9px,1.7cqh,17px);margin:0 auto;border-radius:18px;
+ display:flex;justify-content:center;align-items:center;gap:clamp(8px,1.4cqw,16px);font-size:clamp(17px,2.4cqh,24px)}
+body.kid-mode .kidmath-target {font-size:clamp(30px,4cqh,44px);padding:3px 12px;border-radius:14px}
+body.kid-mode .kidmath-instruction button {min-width:50px;min-height:50px;width:50px;height:50px;border-radius:14px}
+body.kid-mode .kidmath-bins {flex:1 1 auto;min-height:0;width:min(100%,900px);max-width:100%;height:auto;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(11px,2cqw,22px);overflow:hidden}
+body.kid-mode .kidmath-bin {min-height:0;min-width:0;padding:clamp(9px,1.6cqh,18px);border-radius:clamp(18px,2.5cqh,30px);gap:clamp(4px,1cqh,11px);justify-content:space-between}
+body.kid-mode .kidmath-bin .kidbin-label {font-size:clamp(16px,2.25cqh,22px);line-height:1.2}
+body.kid-mode .kidmath-cookies {flex:1 1 auto;display:flex;align-content:center;align-items:center;justify-content:center;gap:clamp(4px,1cqw,9px);min-height:0;max-width:100%;overflow:hidden}
+body.kid-mode .kidcookie {min-width:clamp(46px,6.7cqh,62px);min-height:clamp(46px,6.7cqh,62px);font-size:clamp(30px,4.9cqh,47px);padding:2px;line-height:1.2;border-radius:13px}
+body.kid-mode .kidmath-bin .count {font-size:clamp(18px,2.6cqh,24px);line-height:1.1}
+body.kid-mode .kidmath-result {flex:0 0 auto;margin:0;font-size:clamp(17px,2.4cqh,24px);line-height:1.2}
+
+/* 5. Train pattern: train takes the main canvas, answer controls remain big. */
+body.kid-mode .v5-stage:has(.v5-railroad) {justify-content:space-evenly}
+body.kid-mode .v5-railroad {flex:1 1 auto;min-height:0;width:min(100%,970px);max-width:100%;margin:0 auto;padding:clamp(8px,1.4cqh,17px);gap:clamp(7px,1.2cqw,15px);justify-content:center;align-items:center;overflow:hidden}
+body.kid-mode .v5-engine {font-size:clamp(47px,8.5cqh,84px)}
+body.kid-mode .v5-wagon {flex:0 1 clamp(55px,8.7cqh,90px);width:clamp(55px,8.7cqh,90px);min-width:0;height:clamp(68px,11cqh,108px);font-size:clamp(36px,6.5cqh,63px);border-radius:18px;}
+body.kid-mode .v5-wagon:not(.missing)::after {display:none}
+body.kid-mode .v5-choose-caption {font-size:clamp(17px,2.3cqh,22px);margin:0}
+body.kid-mode .v5-pattern-options {flex:0 0 auto;min-height:0;height:auto;margin:0;display:flex;justify-content:center;gap:clamp(12px,2cqw,23px)}
+body.kid-mode .v5-pattern-options button {flex:0 0 clamp(76px,12cqh,112px);height:clamp(76px,12cqh,112px);min-width:0;min-height:0;margin:0;border-radius:21px;font-size:clamp(43px,7cqh,71px);padding:5px;}
+
+/* 6. Stories: illustrations dominate, story controls are stable at bottom. */
+body.kid-mode .kid-story-stage {justify-content:space-between}
+body.kid-mode .kid-storypage {flex:1 1 auto;min-height:0;width:min(100%,940px);max-width:100%;margin:0 auto;padding:clamp(9px,1.5cqh,20px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(6px,1.2cqh,13px);border-radius:var(--kid-radius);overflow:hidden}
+body.kid-mode .kid-story-art {flex:1 1 auto;min-height:0;width:100%;height:100%;max-height:clamp(150px,38cqh,350px);margin:0;aspect-ratio:auto}
+body.kid-mode .kid-story-art svg {width:100%;height:100%;object-fit:contain}
+body.kid-mode .kid-story-text {flex:0 0 auto;min-height:0;margin:0;font-size:clamp(17px,2.5cqh,24px);line-height:1.35}
+body.kid-mode .kid-storypage .kid-listen {min-height:52px}
+body.kid-mode .kid-story-nav {flex:0 0 auto;width:min(100%,590px);max-width:100%;display:flex;gap:clamp(10px,1.7cqw,18px);margin:0 auto}
+body.kid-mode .kid-story-nav button {flex:1 1 0;min-height:52px;font-size:clamp(15px,2.1cqh,20px);border-radius:18px;padding:10px 17px}
+body.kid-mode .v5-stage:has(.v5-story-world) {justify-content:space-between}
+body.kid-mode .v5-story-world {flex:1 1 auto;min-height:0;width:min(100%,950px);max-width:100%;max-height:none;margin:0 auto;position:relative;overflow:hidden}
+body.kid-mode .v5-story-scene,body.kid-mode .v5-story-scene .kid-story-art {position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;margin:0!important;overflow:hidden}
+body.kid-mode .v5-story-scene .kid-story-art svg {object-fit:cover}
+body.kid-mode .v5-hotspot {width:clamp(54px,8.5cqh,84px);height:clamp(54px,8.5cqh,84px);border-radius:50%;font-size:clamp(30px,5cqh,49px)}
+body.kid-mode .v5-story-quote {flex:0 0 auto;width:min(100%,930px);padding:clamp(9px,1.5cqh,18px);margin:0 auto;font-size:clamp(14px,2cqh,20px);line-height:1.35}
+body.kid-mode .v5-discover-count {flex:0 0 auto;margin:0;font-size:clamp(15px,2cqh,20px)}
+body.kid-mode .v5-story-finale {flex:0 0 auto;margin:0;text-align:center}
+body.kid-mode .v5-story-finale h2 {font-size:clamp(17px,2.5cqh,24px)}
+body.kid-mode .v5-endings button {min-width:110px;min-height:75px;font-size:38px}
+body.kid-mode .v5-win,body.kid-mode .kid-win {flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.8cqh,18px);padding:clamp(10px,1.7cqh,22px);overflow:hidden}
+body.kid-mode .kid-win .kid-win-emoji {font-size:clamp(70px,13cqh,125px)}
+body.kid-mode .kid-win h2 {font-size:clamp(25px,4cqh,40px)}
+
+/* System sound modal is an adult-controlled overlay. Scroll internally if necessary. */
+body.kid-mode .kidaudio-panel {position:fixed;right:max(12px,env(safe-area-inset-right));top:max(64px,calc(env(safe-area-inset-top) + 58px));width:min(410px,calc(100vw - 24px));max-height:calc(100dvh - 75px);overflow:auto;z-index:10000;padding:16px;border-radius:22px;box-shadow:0 20px 44px #203d5f33}
+body.kid-mode .kidaudio-panel button {min-height:44px}
+body.kid-mode .kidparent-modal-back {padding:clamp(12px,3vmin,28px)}
+body.kid-mode .kidparent-modal {max-height:90dvh;overflow:auto}
+
+/* Tablet & wide devices: home becomes a composition, game stages remain max 1160px. */
+@container kidspace (min-width:760px) and (min-aspect-ratio:1.22) {
+ body.kid-mode .kidmain {
+  grid-template-areas:'hero title' 'hero cards' 'hero rest';
+  grid-template-columns:minmax(245px,32fr) minmax(0,68fr);
+  grid-template-rows:auto minmax(0,1fr) auto;
+  gap:clamp(10px,1.65cqh,19px) clamp(15px,2.1cqw,27px);
+ }
+ body.kid-mode .kidhomehero {height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:clamp(17px,4.5cqh,45px);padding:clamp(18px,3cqh,35px);}
+ body.kid-mode .kidhomehero .kidhero-copy {gap:clamp(9px,1.8cqh,18px);align-items:flex-start}
+ body.kid-mode .kidhomehero h1 {font-size:clamp(28px,4.5cqh,44px)}
+ body.kid-mode .kidhomehero .kid-mascot {width:min(100%,clamp(120px,30cqh,220px));max-height:44%;align-self:center}
+ body.kid-mode .kidpick-title {font-size:clamp(23px,3.1cqh,31px)}
+ body.kid-mode .kidcards-four {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));}
+ body.kid-mode .kidcards-four .kidcard,body.kid-mode .kidcards-four .kidcard.ma {display:grid!important;grid-template-columns:minmax(72px,42fr) minmax(0,58fr);grid-template-rows:auto auto auto;justify-content:center!important;justify-items:center;align-content:center;align-items:center!important;column-gap:clamp(6px,1.4cqw,14px)!important;row-gap:clamp(4px,.9cqh,10px)!important;padding:clamp(10px,2cqh,20px)!important;}
+ body.kid-mode .kidcards-four .kidcard .kidart,body.kid-mode .kidcards-four .kidcard.ma .kidart {grid-column:1!important;grid-row:1/4!important;font-size:clamp(49px,8.8cqh,90px)!important;max-height:100%;align-self:center;}
+ body.kid-mode .kidcards-four .kidcard strong {grid-column:2!important;grid-row:1!important;align-self:end;font-size:clamp(17px,2.7cqh,25px)!important}
+ body.kid-mode .kidcards-four .kidcard small {grid-column:2!important;grid-row:2!important;font-size:clamp(12px,1.85cqh,17px)!important}
+ body.kid-mode .kidcards-four .kidcard .kidcard-arrow {grid-column:2!important;grid-row:3!important;align-self:start}
+}
+/* Wide landscape game: clear typographic and spatial hierarchy rather than a small island. */
+@container kidspace (min-width:900px) and (min-height:510px) and (min-aspect-ratio:1.23) {
+ body.kid-mode .kid-choices {max-width:min(100%,930px)}
+ body.kid-mode .kid-choice {min-height:clamp(175px,28cqh,270px)}
+ body.kid-mode .v5-stage:has(.v5-word-slots) {justify-content:space-evenly}
+ body.kid-mode .v5-slot {width:clamp(86px,13cqh,122px);height:clamp(90px,14cqh,132px)}
+ body.kid-mode .v5-char-chip {width:clamp(82px,12cqh,116px);height:clamp(86px,13cqh,124px)}
+}
+/* Short landscape phones: two-column play surfaces, not squashed vertical cards. */
+@container kidspace (max-height:430px) and (min-aspect-ratio:1.55) {
+ body.kid-mode .kidtop {flex-basis:38px}
+ body.kid-mode .kidbrand {font-size:15px;min-height:36px}
+ body.kid-mode .kidbrand-ico {width:33px;height:33px;min-width:33px;font-size:20px}
+ body.kid-mode .kidquiet,body.kid-mode .kidparent {min-height:37px;min-width:44px;padding:4px 10px;font-size:15px}
+ body.kid-mode .kidhead-label {font-size:10px}
+ body.kid-mode .kid-scene-head {flex-basis:33px}
+ body.kid-mode .kid-back {min-height:33px;padding:5px 10px;font-size:12px}
+ body.kid-mode .kid-scene-number {font-size:11px}
+ body.kid-mode .v5tabs {flex-basis:36px;gap:6px}
+ body.kid-mode .v5tabs button {font-size:11px;padding:3px 7px;border-radius:11px}
+ body.kid-mode .v5tabs button span {font-size:15px!important}
+ body.kid-mode .kid-stage,body.kid-mode .kid-stage.v5-stage {padding:7px 14px;gap:4px;border-radius:17px}
+ body.kid-mode .kid-stage-header,body.kid-mode .v5-intro {gap:7px}
+ body.kid-mode .kid-stage-emoji,body.kid-mode .v5-mascot {font-size:23px}
+ body.kid-mode .kid-stage h1,body.kid-mode .v5-intro h1 {font-size:17px}
+ body.kid-mode .kid-stage-sub,body.kid-mode .kid-stage .kid-stage-sub,body.kid-mode .v5-intro p {font-size:10px;margin:0}
+ body.kid-mode .kidmain {grid-template-areas:'hero title' 'hero cards' 'hero rest';grid-template-columns:minmax(180px,31fr) minmax(0,69fr);grid-template-rows:auto minmax(0,1fr) auto;gap:5px 8px}
+ body.kid-mode .kidhomehero {display:flex;flex-direction:column;justify-content:space-evenly;gap:4px;min-height:0;padding:9px;border-radius:15px}
+ body.kid-mode .kidhomehero h1 {font-size:18px}
+ body.kid-mode .kidhomehero .kid-mascot {max-width:90px;max-height:35%}
+ body.kid-mode .kidhomehero .kidhero-speak {min-height:34px;font-size:11px;padding:4px 10px}
+ body.kid-mode .kidpick-title {font-size:17px}
+ body.kid-mode .kidcards-four {gap:5px}
+ body.kid-mode .kidcards-four .kidcard,body.kid-mode .kidcards-four .kidcard.ma {display:flex!important;flex-direction:row!important;justify-content:center!important;gap:8px!important;padding:4px!important;border-radius:12px!important;flex-wrap:wrap}
+ body.kid-mode .kidcards-four .kidcard .kidart,body.kid-mode .kidcards-four .kidcard.ma .kidart {font-size:clamp(28px,8cqh,40px)!important;min-height:0!important;grid-area:auto!important;flex:0 0 auto!important}
+ body.kid-mode .kidcards-four .kidcard strong {font-size:13px!important;grid-area:auto!important}
+ body.kid-mode .kidcards-four .kidcard small {display:none!important}
+ body.kid-mode .kidcards-four .kidcard .kidcard-arrow {display:none!important}
+ body.kid-mode .kid-rest {font-size:9px}
+ body.kid-mode .kid-listen,body.kid-mode .v5-hear {min-height:40px;width:clamp(130px,22cqw,195px);font-size:13px;padding:4px 9px}
+ body.kid-mode .kid-feedback,body.kid-mode .v5-feedback {min-height:30px;font-size:11px;padding:4px 8px}
+ body.kid-mode .kid-next,body.kid-mode .v5-primary,body.kid-mode .v5-secondary,body.kid-mode .v5-voice-help,body.kid-mode .kidmath-reset {min-height:38px;font-size:12px;padding:4px 11px}
+ body.kid-mode .kid-quiet-tip,body.kid-mode .v5-tip {display:none}
+ body.kid-mode .kid-choices {grid-auto-rows:minmax(105px,1fr);gap:8px}
+ body.kid-mode .kid-choice,body.kid-mode .kid-choice.picture {font-size:clamp(35px,13cqh,53px)}
+ body.kid-mode .kid-choice .kidword-meaning {font-size:12px}
+ body.kid-mode .v5-stage:has(.v5-word-slots),body.kid-mode .v5-stage:has(.v5-house),body.kid-mode .v5-stage:has(.v5-railroad) {display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);grid-template-rows:auto minmax(0,1fr) auto;gap:4px 12px;align-items:center;justify-content:stretch}
+ body.kid-mode .v5-intro {grid-column:1;grid-row:1}
+ body.kid-mode .v5progress {grid-column:2;grid-row:1}
+ body.kid-mode .v5-hear {grid-column:1;grid-row:2;justify-self:center}
+ body.kid-mode .v5-word-slots,body.kid-mode .v5-house,body.kid-mode .v5-railroad {grid-column:2;grid-row:2;align-self:center}
+ body.kid-mode .v5-word-slots {min-height:0;padding:2px;gap:7px}
+ body.kid-mode .v5-slot {width:58px;height:62px;min-height:0;font-size:33px;border-radius:12px}
+ body.kid-mode .v5-chip-row {grid-column:2;grid-row:3;gap:7px;flex-wrap:nowrap}
+ body.kid-mode .v5-char-chip {width:55px;height:56px;min-height:0;font-size:29px;border-radius:12px}
+ body.kid-mode .v5-buttons,body.kid-mode .v5-tip {grid-column:1;grid-row:3}
+ body.kid-mode .v5-feedback {grid-column:2;grid-row:3}
+ body.kid-mode .v5-house {min-height:110px;max-height:130px;font-size:14px;padding:5px}
+ body.kid-mode .v5-house>span {font-size:45px}
+ body.kid-mode .v5-picture-row {grid-column:2;grid-row:3;gap:6px;align-self:end}
+ body.kid-mode .v5-picture {height:51px;border-radius:12px}
+ body.kid-mode .v5-picture>span {font-size:30px}
+ body.kid-mode .v5-engine {font-size:33px}
+ body.kid-mode .v5-wagon {width:53px;flex-basis:53px;height:58px;font-size:30px}
+ body.kid-mode .v5-choose-caption,body.kid-mode .v5-pattern-options {grid-column:2;grid-row:3}
+ body.kid-mode .v5-pattern-options button {width:46px;flex-basis:46px;height:48px;font-size:30px;border-radius:11px}
+ body.kid-mode .kid-math-stage {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-rows:auto auto minmax(0,1fr) auto;column-gap:12px}
+ body.kid-mode .kid-math-stage .kid-stage-header {grid-column:1;grid-row:1}
+ body.kid-mode .kidmath-instruction {grid-column:1;grid-row:2;font-size:13px;padding:4px}
+ body.kid-mode .kidmath-target {font-size:24px}
+ body.kid-mode .kidmath-instruction button {min-height:36px;min-width:36px;height:36px;width:36px}
+ body.kid-mode .kidmath-bins {grid-column:2;grid-row:1/5;height:100%;gap:6px}
+ body.kid-mode .kidmath-bin {padding:4px;border-radius:11px}
+ body.kid-mode .kidmath-bin .kidbin-label {font-size:11px}
+ body.kid-mode .kidcookie {min-width:34px;min-height:34px;font-size:24px}
+ body.kid-mode .kidmath-bin .count {font-size:12px}
+ body.kid-mode .kidmath-help {display:none}
+ body.kid-mode .kidmath-result {grid-column:1;grid-row:3;font-size:15px;align-self:center}
+ body.kid-mode .kidmath-reset,body.kid-mode .kid-math-stage .kid-next {grid-column:1;grid-row:4}
+ body.kid-mode .kid-storypage {width:100%;padding:4px;gap:3px}
+ body.kid-mode .kid-story-art {max-height:90px}
+ body.kid-mode .kid-story-text {font-size:12px;line-height:1.2}
+ body.kid-mode .kid-story-nav button {min-height:38px;font-size:12px;padding:4px}
+ body.kid-mode .v5-story-world {min-height:75px}
+ body.kid-mode .v5-story-quote {font-size:11px;padding:4px}
+ body.kid-mode .v5-hotspot {width:40px;height:40px;font-size:23px}
+}
+
+/* Small portrait: 2×2 doors and large full-width learning cards. */
+@container kidspace (max-width:540px) and (min-aspect-ratio:.01) {
+ body.kid-mode .kid-stage,body.kid-mode .kid-stage.v5-stage {padding:clamp(9px,1.8cqh,17px) clamp(8px,2.8cqw,14px);gap:clamp(7px,1.1cqh,12px)}
+ body.kid-mode .kidmain {grid-template-rows:minmax(114px,25fr) auto minmax(210px,75fr) auto;gap:clamp(7px,1.25cqh,11px)}
+ body.kid-mode .kidhomehero {grid-template-columns:minmax(0,1fr) minmax(95px,28%)}
+ body.kid-mode .kidhomehero h1 {font-size:clamp(23px,3.6cqh,33px)}
+ body.kid-mode .kidcards-four .kidcard .kidart {font-size:clamp(40px,7.5cqh,64px)!important}
+ body.kid-mode .kidcards-four .kidcard strong {font-size:clamp(16px,2.4cqh,22px)!important}
+ body.kid-mode .kidcards-four .kidcard small {font-size:clamp(11px,1.7cqh,14px)!important}
+ body.kid-mode .kid-choices {grid-auto-rows:minmax(105px,1fr);gap:clamp(7px,2cqw,11px)}
+ body.kid-mode .kid-choice {font-size:clamp(45px,10cqh,77px)}
+ body.kid-mode .kid-choice.picture {font-size:clamp(42px,8.5cqh,66px)}
+ body.kid-mode .v5-word-slots {gap:9px;min-height:0;padding:0}
+ body.kid-mode .v5-slot {width:clamp(62px,14cqh,82px);height:clamp(64px,14.5cqh,85px);font-size:clamp(34px,6.7cqh,47px)}
+ body.kid-mode .v5-chip-row {gap:clamp(7px,1.8cqw,12px);flex-wrap:nowrap}
+ body.kid-mode .v5-char-chip {width:clamp(58px,12.6cqh,77px);height:clamp(60px,13cqh,79px);font-size:clamp(31px,6cqh,44px)}
+ body.kid-mode .v5-house {min-height:105px;max-height:clamp(140px,28cqh,205px)}
+ body.kid-mode .v5-picture {height:clamp(85px,15cqh,118px)}
+ body.kid-mode .v5-picture>span {font-size:clamp(43px,8cqh,63px)}
+ body.kid-mode .kidmath-bin {padding:clamp(6px,1.4cqh,13px)}
+ body.kid-mode .kidcookie {min-width:clamp(43px,6.5cqh,53px);min-height:clamp(43px,6.5cqh,53px);font-size:clamp(27px,4.7cqh,39px)}
+ body.kid-mode .v5-railroad {padding:4px;gap:clamp(3px,1cqw,8px)}
+ body.kid-mode .v5-engine {font-size:clamp(35px,7.5cqh,55px)}
+ body.kid-mode .v5-wagon {width:clamp(39px,8.4cqw,53px);flex-basis:clamp(39px,8.4cqw,53px);height:clamp(50px,10cqh,70px);font-size:clamp(28px,5.5cqh,41px)}
+ body.kid-mode .v5-pattern-options button {flex-basis:clamp(65px,12cqh,92px);height:clamp(65px,12cqh,92px);font-size:clamp(35px,6cqh,51px)}
+ body.kid-mode .v5-story-world {min-height:135px}
+ body.kid-mode .v5-story-quote {font-size:clamp(13px,2cqh,17px)}
+}
+@container kidspace (max-height:600px) and (max-aspect-ratio:1) {
+ body.kid-mode .kid-stage,body.kid-mode .kid-stage.v5-stage {gap:5px;padding:7px 10px}
+ body.kid-mode .kid-stage h1,body.kid-mode .v5-intro h1 {font-size:20px}
+ body.kid-mode .kid-stage-emoji,body.kid-mode .v5-mascot {font-size:28px}
+ body.kid-mode .kid-quiet-tip,body.kid-mode .v5-tip {display:none}
+ body.kid-mode .kid-listen,body.kid-mode .v5-hear {min-height:46px;font-size:15px}
+ body.kid-mode .kid-feedback,body.kid-mode .v5-feedback {min-height:34px;padding:5px;font-size:12px}
+ body.kid-mode .kid-next,body.kid-mode .v5-primary,body.kid-mode .v5-secondary {min-height:43px;font-size:13px;padding:5px 11px}
+ body.kid-mode .v5-slot {width:61px;height:66px}
+ body.kid-mode .v5-char-chip {width:57px;height:61px}
+ body.kid-mode .v5-house {max-height:118px}
+ body.kid-mode .v5-picture {height:70px}
+ body.kid-mode .v5-pattern-options button {height:57px;flex-basis:57px}
+}
+/* Readable adult screens: scroll naturally, never clipped by kid-specific rules. */
+body:not(.kid-mode) .shell {max-width:1140px;margin:0 auto;padding-inline:clamp(12px,2vw,25px)}
+@media (max-width:640px) {
+ body:not(.kid-mode) .lesson-card {grid-template-columns:34px minmax(0,1fr);gap:10px}
+ body:not(.kid-mode) .teach-step {grid-template-columns:46px minmax(0,1fr)}
+ body:not(.kid-mode) button,body:not(.kid-mode) input,body:not(.kid-mode) select {max-width:100%}
+}
+@media (prefers-reduced-motion:reduce) {body.kid-mode * {scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+/* State-sensitive corrections: preserve correct-answer and completion controls. */
+body.kid-mode .v5-stage:has(.v5-house-came) .v5-house {min-height:clamp(121px,22cqh,205px);overflow:visible}
+body.kid-mode .kidmath-cookies .kidcookie {min-width:46px;min-height:46px}
+@container kidspace (max-height:430px) and (min-aspect-ratio:1.55) {
+ body.kid-mode .kidtop {flex-basis:43px}
+ body.kid-mode .kidbrand {min-height:44px}
+ body.kid-mode .kidquiet,body.kid-mode .kidparent {min-height:44px}
+ body.kid-mode .kid-scene-head {flex-basis:40px}
+ body.kid-mode .kid-back {min-height:44px}
+ body.kid-mode .v5tabs {flex-basis:44px}
+ body.kid-mode .v5tabs button {min-height:44px}
+ body.kid-mode .v5-hear,body.kid-mode .kid-listen {min-height:44px}
+ body.kid-mode .v5-primary,body.kid-mode .v5-secondary,body.kid-mode .v5-voice-help,body.kid-mode .kidmath-reset,body.kid-mode .kid-next {min-height:44px}
+ body.kid-mode .kidmath-instruction button {min-width:44px;min-height:44px;width:44px;height:44px}
+ body.kid-mode .kidcookie {min-width:44px;min-height:44px;font-size:25px}
+ body.kid-mode .kid-story-nav button {min-height:44px}
+ body.kid-mode .v5-hotspot {width:44px;height:44px;font-size:23px}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-intro,
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5progress,
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-story-world,
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-story-quote,
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-feedback,
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-voice-help {display:none}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-story-finale {flex:1 1 0%;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;gap:8px}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-story-finale h2 {font-size:24px;margin:0}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-story-finale p {font-size:14px;margin:0}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-endings {display:flex;gap:14px}
+ body.kid-mode .kid-stage:has(.v5-story-finale) .v5-endings button {min-height:84px;min-width:120px;padding:10px;font-size:36px}
+ body.kid-mode .kidaudio-panel {top:8px;bottom:8px;max-height:calc(100dvh - 16px)}
+}
+/* Tablet home correction: the story doorway uses the same grid as the other three. */
+@container kidspace (min-width:760px) and (min-aspect-ratio:1.22) {
+ body.kid-mode .kidcards-four .kidcard.story {display:grid!important;grid-template-columns:minmax(72px,42fr) minmax(0,58fr);grid-template-rows:auto auto auto;align-content:center;justify-items:center;align-items:center;column-gap:clamp(6px,1.4cqw,14px);row-gap:clamp(4px,.9cqh,10px)}
+ body.kid-mode .kidcards-four .kidcard.story .kidart {grid-column:1!important;grid-row:1/4!important;align-self:center}
+ body.kid-mode .kidcards-four .kidcard.story strong {grid-column:2!important;grid-row:1!important;align-self:end}
+ body.kid-mode .kidcards-four .kidcard.story small {grid-column:2!important;grid-row:2!important;align-self:center}
+ body.kid-mode .kidcards-four .kidcard.story .kidcard-arrow {grid-column:2!important;grid-row:3!important;align-self:start}
+}
+/* Short landscape outcome states get a separate response layer rather than overlapping cards. */
+@container kidspace (max-height:430px) and (min-aspect-ratio:1.55) {
+ body.kid-mode .v5-stage:has([data-v5-word-next]) .v5-chip-row {display:none}
+ body.kid-mode .v5-stage:has([data-v5-word-next]) .v5-feedback {grid-column:2;grid-row:3;justify-self:center;align-self:center}
+ body.kid-mode .v5-stage:has([data-v5-en-next]) .v5-picture-row {display:none}
+ body.kid-mode .v5-stage:has([data-v5-en-next]) .v5-feedback {grid-column:2;grid-row:3;justify-self:center;align-self:center}
+ body.kid-mode .v5-stage:has(.v5-railroad) .v5-choose-caption {grid-column:1;grid-row:3;align-self:center;justify-self:center}
+ body.kid-mode .v5-stage:has(.v5-railroad) .v5-pattern-options {grid-column:2;grid-row:3;align-self:center;justify-self:center}
+ body.kid-mode .v5-stage:has(.v5-railroad) .v5-voice-help {grid-column:1;grid-row:2;align-self:center;justify-self:center}
+ body.kid-mode .v5-stage:has([data-v5-train-next]) .v5-pattern-options,
+ body.kid-mode .v5-stage:has([data-v5-train-next]) .v5-choose-caption,
+ body.kid-mode .v5-stage:has([data-v5-train-next]) .v5-voice-help {display:none}
+ body.kid-mode .v5-stage:has([data-v5-train-next]) .v5-primary {grid-column:1;grid-row:2;align-self:center;justify-self:center}
+ body.kid-mode .v5-stage:has([data-v5-train-next]) .v5-feedback {grid-column:2;grid-row:3;align-self:center;justify-self:center}
+ body.kid-mode .kid-win button {min-height:44px}
+}
+/* Shared completion scene: V5's actual class is .v5-won, not .v5-win. */
+body.kid-mode .v5-won {flex:1 1 auto;min-height:0;width:min(100%,680px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.1cqh,22px);text-align:center;overflow:hidden;}
+body.kid-mode .v5-won>span {font-size:clamp(65px,13cqh,125px);line-height:1.05}
+body.kid-mode .v5-won h1 {font-size:clamp(27px,4cqh,43px);line-height:1.18;margin:0}
+body.kid-mode .v5-won p {font-size:clamp(16px,2.3cqh,22px);line-height:1.38;max-width:580px;margin:0}
+body.kid-mode .v5-won button {min-width:min(60vw,260px);min-height:54px;margin:0}
+@container kidspace (max-height:430px) and (min-aspect-ratio:1.55) {
+ body.kid-mode .v5-won {width:100%;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:auto auto auto;justify-items:center;align-content:center;gap:4px 14px}
+ body.kid-mode .v5-won>span {grid-column:1;grid-row:1/4;font-size:clamp(50px,14cqh,80px)}
+ body.kid-mode .v5-won h1 {grid-column:2;grid-row:1;font-size:24px}
+ body.kid-mode .v5-won p {grid-column:2;grid-row:2;font-size:12px}
+ body.kid-mode .v5-won button {min-width:140px;min-height:44px;grid-column:2;grid-row:3;display:inline-block}
+ body.kid-mode .v5-won button + button {grid-column:2;grid-row:4}
+}
+/* 320px compact portrait: reclaim instructional whitespace for five real cookie targets. */
+@container kidspace (max-width:355px) and (max-height:620px) {
+ body.kid-mode .kid-math-stage {gap:4px;padding:7px 10px}
+ body.kid-mode .kid-math-stage .kid-stage-sub,body.kid-mode .kid-math-stage .kidmath-help {display:none}
+ body.kid-mode .kid-math-stage .kid-stage-header {min-height:29px}
+ body.kid-mode .kid-math-stage .kid-stage-emoji {font-size:26px}
+ body.kid-mode .kid-math-stage .kid-stage h1,body.kid-mode .kid-math-stage h1 {font-size:20px;white-space:nowrap}
+ body.kid-mode .kidmath-instruction {min-height:49px;padding:4px 6px;font-size:16px;gap:6px}
+ body.kid-mode .kidmath-target {font-size:27px;padding:2px 8px}
+ body.kid-mode .kidmath-instruction button {min-width:46px;min-height:46px;width:46px;height:46px}
+ body.kid-mode .kidmath-bins {min-height:180px;gap:7px}
+ body.kid-mode .kidmath-bin {padding:6px 3px;gap:3px}
+ body.kid-mode .kidmath-bin .kidbin-label {font-size:12px}
+ body.kid-mode .kidmath-cookies {gap:2px;align-content:center;overflow:visible}
+ body.kid-mode .kidcookie {min-width:44px;min-height:44px;font-size:26px;padding:0}
+ body.kid-mode .kidmath-bin .count {font-size:14px}
+ body.kid-mode .kidmath-result {font-size:16px}
+ body.kid-mode .kidmath-reset {min-height:44px;padding:5px 12px}
+}
